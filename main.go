@@ -2,6 +2,7 @@ package main
 
 import (
 	"go-admin/cmd"
+	"github.com/joho/godotenv"
 )
 
 //go:generate swag init --parseDependency --parseDepth=6 --instanceName admin -o ./docs/admin
@@ -16,6 +17,10 @@ import (
 // @securityDefinitions.apikey Bearer
 // @in header
 // @name Authorization
+
+func init() {
+    godotenv.Load()
+}
 func main() {
 	cmd.Execute()
 }

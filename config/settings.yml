@@ -27,11 +27,8 @@ settings:
     # token 过期时间 单位：秒
     timeout: 3600
   database:
-    # 数据库类型 mysql, sqlite3, postgres, sqlserver
-    # sqlserver: sqlserver://用户名:密码@地址?database=数据库名
-  database:
     driver: postgres
-    source: postgresql://postgres.eyvskgqwduixhjirfanz:EuwQ5dXOvG89bgoK@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?sslmode=require&prefer_simple_protocol=true
+    source: ${DATABASE_URL}
 #  databases:
 #    'locaohost:8000':
 #      driver: mysql
