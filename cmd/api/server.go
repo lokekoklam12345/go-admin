@@ -180,7 +180,8 @@ func initRouter() {
 
 	// ⚡ 在這裡加 CORS
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"https://wqs-api.lokekoklam.com", "https://www.wqs-api.lokekoklam.com"},
+		// AllowOrigins:     []string{"https://wqs-api.lokekoklam.com", "https://www.wqs-api.lokekoklam.com"},
+		AllowOrigins: []string{"*"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
