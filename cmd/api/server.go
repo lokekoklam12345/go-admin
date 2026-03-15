@@ -27,6 +27,7 @@ import (
 	"go-admin/common/middleware/handler"
 	"go-admin/common/storage"
 	ext "go-admin/config"
+	"github.com/gin-contrib/cors"
 )
 
 var (
@@ -87,8 +88,8 @@ func run() error {
 	}
 
 	srv := &http.Server{
-		Addr:    fmt.Sprintf("%s:%d", config.ApplicationConfig.Host, config.ApplicationConfig.Port),
-		Handler: sdk.Runtime.GetEngine(),
+		Addr:         fmt.Sprintf("%s:%d", config.ApplicationConfig.Host, config.ApplicationConfig.Port),
+		Handler:      sdk.Runtime.GetEngine(),
 		ReadTimeout:  time.Duration(config.ApplicationConfig.ReadTimeout) * time.Second,
 		WriteTimeout: time.Duration(config.ApplicationConfig.WriterTimeout) * time.Second,
 	}
@@ -175,6 +176,16 @@ func initRouter() {
 		log.Fatal("not support other engine")
 		//os.Exit(-1)
 	}
+
+	// ⚡ 在這裡加 CORS
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"https://wqs.lokekoklam.com"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 	if config.SslConfig.Enable {
 		r.Use(handler.TlsHandler())
 	}
